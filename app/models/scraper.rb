@@ -76,17 +76,17 @@ class Scraper < ApplicationRecord
   end
 
   def self.if
-    # require 'open-uri'
-    # doc = Nokogiri::HTML(open('https://www.infowars.com/category/us-news/'))
-    # headline = doc.css('div.articles-wrap.pure-g:first-child article.article-content h3 a')
-    # title = headline.text
-    # url = headline.attr('href')
-    # @headline = Headline.find_by(website: "Infowars")
-    # if @headline.nil?
-    #   @headline = Headline.create(website: "Infowars", title: title, url: url)
-    # else
-    #   @headline.update(title: title, url: url)
-    # end
+    require 'open-uri'
+    doc = Nokogiri::HTML(open('https://www.infowars.com'))
+    headline = doc.css('#home-flexslider ul.slides li:nth-child(1) div.flex-caption div h3 a')
+    title = doc.css('#home-flexslider ul.slides li:nth-child(1) div.flex-caption div h3 a div').text
+    url = headline.attr('href')
+    @headline = Headline.find_by(website: "Infowars")
+    if @headline.nil?
+      @headline = Headline.create(website: "Infowars", title: title, url: url)
+    else
+      @headline.update(title: title, url: url)
+    end
   end
 
   def self.bb
