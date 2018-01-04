@@ -1,0 +1,5 @@
+<% @headlines.each do |h| %>
+  <h1><%= h.website %>:<h1>
+  <h3><%= link_to h.title, h.url %></h3>
+  <br></br>
+<% end %>
